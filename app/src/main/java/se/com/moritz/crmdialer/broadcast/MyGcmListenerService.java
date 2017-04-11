@@ -1,4 +1,8 @@
 package se.com.moritz.crmdialer.broadcast;
 
-public class MyGcmListenerService {
+import com.google.android.gms.gcm.*;
+
+public class MyGcmListenerService extends GcmListenerService{
+
+
 }
