@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "380200796457",
+    "firebase_url": "https://crmdialer-db212.firebaseio.com",
+    "project_id": "crmdialer-db212",
+    "storage_bucket": "crmdialer-db212.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380200796457:android:c617de4d5d0b28b6",
+        "android_client_info": {
+          "package_name": "se.com.moritz.crmdialer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380200796457-8o7b5jc2qs93dn923a96pdjjhnnvejhp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "se.com.moritz.crmdialer",
+            "certificate_hash": "e6f16f2e476817e2cfdd9e0c6aa2facc88368249"
+          }
+        },
+        {
+          "client_id": "380200796457-i5lpcfi82uq43684etngjtfq0s9tkk72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWOKPNLIZ2ho8jpG3xekPjdUTE61SEivw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "380200796457-i5lpcfi82uq43684etngjtfq0s9tkk72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
