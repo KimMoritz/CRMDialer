@@ -1,4 +1,4 @@
-package se.com.moritz.crmdialer.broadcast;
+package se.com.moritz.crmdialer.firebase_messaging;
 
 import android.util.Log;
 
