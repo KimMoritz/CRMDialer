@@ -72,31 +72,35 @@ public class CallScreen extends AppCompatActivity {
         updateContactListView();
         //Button listeners
         fabAccept.setOnClickListener(
-                (view) -> {
-                    context = getApplicationContext();
-                    if(CallHandler.getCall() != null){
-                        CallHandler.acceptCall(VideoProfile.STATE_AUDIO_ONLY);
-                        Intent inCallActivityIntent= new Intent(CallScreen.this, InCallActivity.class);
-                        startActivity(inCallActivityIntent);
-                    }else{
-                        Toast.makeText(context, "There is no call to answer", toastDuration).show();
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        context = getApplicationContext();
+                        if (CallHandler.getCall() != null) {
+                            CallHandler.acceptCall(VideoProfile.STATE_AUDIO_ONLY);
+                            Intent inCallActivityIntent = new Intent(CallScreen.this, InCallActivity.class);
+                            startActivity(inCallActivityIntent);
+                        } else {
+                            Toast.makeText(context, "There is no call to answer", toastDuration).show();
+                        }
                     }
-                }
-        );
+                });
 
         fabDeny.setOnClickListener(
-                (view) -> {
-                    context = getApplicationContext();
-                    toast = Toast.makeText(context, R.string.rejecting_call, toastDuration);
-                    toast.show();
-                    if(CallHandler.getCall() != null){
-                        CallHandler.rejectCall();
-                        Log.i(TAG, "Call rejected");
-                    }else{
-                        Toast.makeText(context, "There is no call to reject", toastDuration).show();
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        context = getApplicationContext();
+                        toast = Toast.makeText(context, R.string.rejecting_call, toastDuration);
+                        toast.show();
+                        if (CallHandler.getCall() != null) {
+                            CallHandler.rejectCall();
+                            Log.i(TAG, "Call rejected");
+                        } else {
+                            Toast.makeText(context, "There is no call to reject", toastDuration).show();
+                        }
                     }
-                }
-        );
+                });
 
         String Token = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "FireBase token: " + Token);
