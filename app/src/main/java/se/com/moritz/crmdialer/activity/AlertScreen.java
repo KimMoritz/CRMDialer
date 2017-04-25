@@ -15,7 +15,6 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ import se.com.moritz.crmdialer.broadcast.MyBroadCastReceiver;
 import se.com.moritz.crmdialer.R;
 import se.com.moritz.crmdialer.phonecall.TelephonyManagerHandler;
 
-public class CallScreen extends AppCompatActivity {
+public class AlertScreen extends AppCompatActivity {
 
     ListView callerInfoListView;
     Toast toast;
@@ -38,13 +37,13 @@ public class CallScreen extends AppCompatActivity {
     Context context;
     MyBroadCastReceiver myBroadCastReceiver;
     TelephonyManagerHandler telephonyManagerHandler;    //TODO: Needed?
-    public final String TAG = "CallScreen" ;
+    public final String TAG = "AlertScreen" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //variables
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call_screen);
+        setContentView(R.layout.activity_alert_screen);
         toastDuration = Toast.LENGTH_SHORT;
 
         //objects
@@ -78,7 +77,7 @@ public class CallScreen extends AppCompatActivity {
                         context = getApplicationContext();
                         if (CallHandler.getCall() != null) {
                             CallHandler.acceptCall(VideoProfile.STATE_AUDIO_ONLY);
-                            Intent inCallActivityIntent = new Intent(CallScreen.this, InCallActivity.class);
+                            Intent inCallActivityIntent = new Intent(AlertScreen.this, InCallActivity.class);
                             startActivity(inCallActivityIntent);
                         } else {
                             Toast.makeText(context, "There is no call to answer", toastDuration).show();
@@ -114,7 +113,7 @@ public class CallScreen extends AppCompatActivity {
     }
 
     public void updateContactListView(){
-        ContactInfoUpdater.updateListView(callerInfoListView, CallScreen.this);
+        ContactInfoUpdater.updateListView(callerInfoListView, AlertScreen.this);
     }
 
     @Override

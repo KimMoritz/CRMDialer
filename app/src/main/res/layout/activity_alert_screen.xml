@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.com.moritz.crmdialer.activity.CallScreen">
+    tools:context="se.com.moritz.crmdialer.activity.AlertScreen">
 
     <include
-        layout="@layout/content_call_screen"
+        layout="@layout/content_alert_screen"
         />
 
     <LinearLayout
@@ -24,7 +24,17 @@
             <ListView
                 android:id="@+id/callerInfoListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="201dp" />
+
+            <ListView
+                android:id="@+id/account_info_listview"
+                android:layout_width="match_parent"
+                android:layout_height="170dp" />
+
+            <ListView
+                android:id="@+id/case_info_listview"
+                android:layout_width="match_parent"
+                android:layout_height="185dp" />
 
         </LinearLayout>
 
