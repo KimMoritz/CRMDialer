@@ -81,7 +81,8 @@
         <activity
             android:name=".activity.InCallActivity"
             android:label="@string/title_activity_in_call"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
