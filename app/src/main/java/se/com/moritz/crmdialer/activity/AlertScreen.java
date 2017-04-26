@@ -29,7 +29,8 @@ import se.com.moritz.crmdialer.phonecall.TelephonyManagerHandler;
 public class AlertScreen extends AppCompatActivity {
 
     ListView callerInfoListView;
-    Toast toast;
+    ListView accountInfoListView;
+    ListView caseInfoListView;
     int toastDuration;
     public static final int REQUEST_CODE_FOR_PHONE=1;
     public static final int REQUEST_CODE_FOR_BIND_TELECOM_CONNECTION_SERVICE=2;
@@ -68,7 +69,10 @@ public class AlertScreen extends AppCompatActivity {
         FloatingActionButton fabAccept = (FloatingActionButton) findViewById(R.id.fab_accept);
         FloatingActionButton fabDeny = (FloatingActionButton) findViewById(R.id.fab_reject);
         callerInfoListView = (ListView) findViewById(R.id.callerInfoListView);
+        accountInfoListView = (ListView) findViewById(R.id.account_info_listview);
+        caseInfoListView = (ListView) findViewById(R.id.case_info_listview);
         updateContactListView();
+
         //Button listeners
         fabAccept.setOnClickListener(
                 new View.OnClickListener() {
@@ -80,7 +84,7 @@ public class AlertScreen extends AppCompatActivity {
                             Intent inCallActivityIntent = new Intent(AlertScreen.this, InCallActivity.class);
                             startActivity(inCallActivityIntent);
                         } else {
-                            Toast.makeText(context, "There is no call to answer", toastDuration).show();
+                            Toast.makeText(context, R.string.no_call_to_answer, toastDuration).show();
                         }
                     }
                 });
@@ -90,19 +94,16 @@ public class AlertScreen extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         context = getApplicationContext();
-                        toast = Toast.makeText(context, R.string.rejecting_call, toastDuration);
-                        toast.show();
                         if (CallHandler.getCall() != null) {
                             CallHandler.rejectCall();
-                            Log.i(TAG, "Call rejected");
+                            Toast.makeText(context, R.string.call_rejected, toastDuration).show();
                         } else {
-                            Toast.makeText(context, "There is no call to reject", toastDuration).show();
+                            Toast.makeText(context, R.string.no_call_to_reject, toastDuration).show();
                         }
                     }
                 });
 
-        String Token = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "FireBase token: " + Token);
+        Log.d(TAG, "FireBase token: " + FirebaseInstanceId.getInstance().getToken());
     }
 
     public static void checkPermissions(Activity activity, String permission, int requestCode){
@@ -114,6 +115,8 @@ public class AlertScreen extends AppCompatActivity {
 
     public void updateContactListView(){
         ContactInfoUpdater.updateListView(callerInfoListView, AlertScreen.this);
+        ContactInfoUpdater.updateListView(accountInfoListView, AlertScreen.this);
+        ContactInfoUpdater.updateListView(caseInfoListView, AlertScreen.this);
     }
 
     @Override

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class ContactInfoUpdater {
 
     private static ArrayList<String> contactInfo = new ArrayList<>();
+    private static ArrayList<String> accountInfo = new ArrayList<>();
+    private static ArrayList<String> caseInfo = new ArrayList<>();
     private static ArrayAdapter<String> listAdapter;
     private static String TAG = "ContactInfoUpdater";
 
@@ -22,9 +24,20 @@ public class ContactInfoUpdater {
         return contactInfo;
     }
 
-    public static void addContactInfo(String s) {
+   /* public static void addContactInfo(String s) {
         contactInfo.add(s);
         Log.i(TAG, "ContactInfo updated");
+    }*/
+
+    public static void addContactInfo(String s) {
+        addInfo(contactInfo,s);
+        addInfo(accountInfo,s);
+        addInfo(caseInfo,s);
+    }
+
+    public static void addInfo(ArrayList<String> infoAL , String s){
+        infoAL.add(s);
+        Log.i(TAG, "Info updated");
     }
 
     public static void clearContactInfo(){

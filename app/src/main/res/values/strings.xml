@@ -4,4 +4,7 @@
     <string name="accepting_call">Accepting call</string>
     <string name="rejecting_call">Rejecting call</string>
     <string name="title_activity_in_call">InCallActivity</string>
+    <string name="call_rejected">Call Rejected</string>
+    <string name="no_call_to_reject">There is no call to reject</string>
+    <string name="no_call_to_answer">There is no call to answer</string>
 </resources>

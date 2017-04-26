@@ -22,7 +22,7 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
         String state = extras.getString(TelephonyManager.EXTRA_STATE);
         if (state != null && state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             try {
-                ContactInfoUpdater.addContactInfo(incomingNumber);
+                ContactInfoUpdater.addContactInfo(incomingNumber); // TODO: Only if there is no info coming in.
                 crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
                 context.startActivity(crmReplyAlertScreenIntent);
                 Toast.makeText(context, "Incoming call", Toast.LENGTH_SHORT).show();
