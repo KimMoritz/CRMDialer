@@ -1,11 +1,8 @@
 package se.com.moritz.crmdialer.firebase_messaging;
 
-import android.util.JsonReader;
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -17,9 +17,7 @@ import android.view.View;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.firebase.iid.FirebaseInstanceId;
-
 import se.com.moritz.crmdialer.phonecall.CallHandler;
 import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
 import se.com.moritz.crmdialer.broadcast.MyBroadCastReceiver;
