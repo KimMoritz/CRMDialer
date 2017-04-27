@@ -22,8 +22,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData().get("Name"));
             String name = remoteMessage.getData().get("Name");
-                ContactInfoUpdater.addContactInfo(name);
-                //ContactInfoUpdater.addContactInfo(remoteMessage.getNotification().getBody());
+            ContactInfoUpdater.addContactInfo(name);
+            //ContactInfoUpdater.addContactInfo(remoteMessage.getNotification().getBody());
         }
 
         if (remoteMessage.getNotification() != null) {
