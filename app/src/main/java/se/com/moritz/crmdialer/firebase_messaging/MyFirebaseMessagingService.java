@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import se.com.moritz.crmdialer.activity.AlertScreen;
 import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
+import se.com.moritz.crmdialer.phonecall.MyInCallService;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -46,9 +47,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         }
 
-        Context context = getApplicationContext();
-        Intent crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
-        context.startActivity(crmReplyAlertScreenIntent);
+        if (MyInCallService.hasCall()) {
+            Context context = getApplicationContext();
+            Intent crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
+            context.startActivity(crmReplyAlertScreenIntent);
+        }
     }
 
 }

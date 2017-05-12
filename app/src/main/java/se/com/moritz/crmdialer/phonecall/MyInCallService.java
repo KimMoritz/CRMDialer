@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class MyInCallService extends InCallService {
     private static final String TAG= "MyInCallService";
-    public Call incomingCall;
+    private static Call incomingCall;
 
     @Override
     public void onCreate() {
@@ -28,7 +28,10 @@ public class MyInCallService extends InCallService {
 
     @Override
     public void onCallRemoved(Call call){
-        // Close InCallActivity, go to post-call screen.
+        incomingCall = null;
     }
 
+    public static boolean hasCall() {
+            return incomingCall!=null;
+    }
 }
