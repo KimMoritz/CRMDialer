@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 import se.com.moritz.crmdialer.activity.AlertScreen;
 import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
+
+import static java.lang.Thread.sleep;
 
 public class MyBroadCastReceiver extends BroadcastReceiver {
     Intent crmReplyAlertScreenIntent;
@@ -22,16 +25,18 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
         String state = extras.getString(TelephonyManager.EXTRA_STATE);
         if (state != null && state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             try {
-                ContactInfoUpdater.addContactInfo(incomingNumber); // TODO: Only if there is no info coming in.
-                crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
-                context.startActivity(crmReplyAlertScreenIntent);
-                Toast.makeText(context, "Incoming call", Toast.LENGTH_SHORT).show();
+                sleep(3000);
+                if(!ContactInfoUpdater.ContactInfoUpdated()){
+                    ContactInfoUpdater.addContactInfo(incomingNumber);
+                    crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
+                    context.startActivity(crmReplyAlertScreenIntent);
+                    Toast.makeText(context, "Incoming call", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 Log.d(TAG, "Exception");
                 e.printStackTrace();
             }
         } else if (state != null && state.equals(TelephonyManager.EXTRA_STATE_IDLE)){
-            //TODO: Clears info if phone goes to idle
             ContactInfoUpdater.clearContactInfo();
         }
     }

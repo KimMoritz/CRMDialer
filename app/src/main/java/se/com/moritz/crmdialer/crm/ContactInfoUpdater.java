@@ -13,34 +13,58 @@ public class ContactInfoUpdater {
     private static ArrayList<String> caseInfo = new ArrayList<>();
     private static ArrayAdapter<String> listAdapter;
     private static String TAG = "ContactInfoUpdater";
+    private static boolean updated = false;
 
-    public static void updateListView(ListView listView, Context context){
+    public static void updateListView(ListView contactListView,ListView accountListView,ListView caseListView, Context context){
         listAdapter = new ArrayAdapter<>(
                 context, android.R.layout.simple_list_item_1, contactInfo);
-        listView.setAdapter(listAdapter);
+        contactListView.setAdapter(listAdapter);
+
+        listAdapter = new ArrayAdapter<>(
+                context, android.R.layout.simple_list_item_1, accountInfo);
+        accountListView.setAdapter(listAdapter);
+
+        listAdapter = new ArrayAdapter<>(
+                context, android.R.layout.simple_list_item_1, caseInfo);
+        caseListView.setAdapter(listAdapter);
+
+        updated = true;
     }
 
     public static ArrayList<String> getContactInfo() {
         return contactInfo;
     }
 
-   /* public static void addContactInfo(String s) {
-        contactInfo.add(s);
-        Log.i(TAG, "ContactInfo updated");
-    }*/
-
     public static void addContactInfo(String s) {
-        addInfo(contactInfo,s);
-        addInfo(accountInfo,s);
-        addInfo(caseInfo,s);
+        if(!contactInfo.contains(s)){
+            addInfo(contactInfo,s);
+        }
     }
 
-    public static void addInfo(ArrayList<String> infoAL , String s){
+    public static void addAccountInfo(String s){
+        if(!accountInfo.contains(s)) {
+            addInfo(accountInfo, s);
+        }
+    }
+
+    public static void addCaseInfo(String s){
+        if(!caseInfo.contains(s)) {
+            addInfo(caseInfo, s);
+        }
+    }
+
+    public static boolean ContactInfoUpdated(){
+        return updated;
+    }
+
+    private static void addInfo(ArrayList<String> infoAL, String s){
         infoAL.add(s);
-        Log.i(TAG, "Info updated");
     }
 
     public static void clearContactInfo(){
         contactInfo.clear();
+        accountInfo.clear();
+        caseInfo.clear();
+        updated = false;
     }
 }

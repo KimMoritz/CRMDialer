@@ -17,6 +17,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to app server.
+        // TODO: Implement this method to send token to app server for easier registration.
+        // or perhaps not... requires inbound channel to server in Azure...
     }
 }

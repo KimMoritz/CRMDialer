@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="se.com.moritz.crmdialer.activity.StartScreenActivity">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_start_screen" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="CRMDialer"
+        android:textSize="30sp"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="top|center_horizontal" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:fabSize="mini"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|left"
+        app:srcCompat="@android:drawable/ic_menu_call" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@android:color/holo_green_dark"
+        app:fabSize="mini"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|right"
+        app:srcCompat="@android:drawable/ic_menu_call" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="top|center_horizontal"
+        android:text="Make New Call"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|center_horizontal" />
+
+    <TextView
+        android:id="@+id/tw17"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical|right"
+        android:text="17"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|left" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="27dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="18"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|right" />
+
+</android.support.design.widget.CoordinatorLayout>

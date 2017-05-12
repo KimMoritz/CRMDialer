@@ -15,6 +15,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -26,9 +28,7 @@ import se.com.moritz.crmdialer.phonecall.TelephonyManagerHandler;
 
 public class AlertScreen extends AppCompatActivity {
 
-    ListView callerInfoListView;
-    ListView accountInfoListView;
-    ListView caseInfoListView;
+    ListView callerInfoListView,accountInfoListView, caseInfoListView;
     int toastDuration;
     public static final int REQUEST_CODE_FOR_PHONE=1;
     public static final int REQUEST_CODE_FOR_BIND_TELECOM_CONNECTION_SERVICE=2;
@@ -37,11 +37,16 @@ public class AlertScreen extends AppCompatActivity {
     MyBroadCastReceiver myBroadCastReceiver;
     TelephonyManagerHandler telephonyManagerHandler;    //TODO: Needed?
     public final String TAG = "AlertScreen" ;
+    private Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //variables
         super.onCreate(savedInstanceState);
+        window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         setContentView(R.layout.activity_alert_screen);
         toastDuration = Toast.LENGTH_SHORT;
 
@@ -52,8 +57,6 @@ public class AlertScreen extends AppCompatActivity {
         stateChangeIntentFilter.addAction(TelephonyManager.EXTRA_STATE_RINGING);
         stateChangeIntentFilter.addAction(TelephonyManager.EXTRA_STATE_IDLE);
         stateChangeIntentFilter.addAction(TelephonyManager.EXTRA_STATE_OFFHOOK);
-        IntentFilter dialIntentFilter =
-                new IntentFilter(Intent.ACTION_DIAL);   //TODO: Only needed in dialer screen?
         context = getApplicationContext();
         context.registerReceiver(myBroadCastReceiver, stateChangeIntentFilter);
         telephonyManagerHandler = new TelephonyManagerHandler(this);
@@ -64,8 +67,8 @@ public class AlertScreen extends AppCompatActivity {
                 REQUEST_CODE_FOR_BIND_TELECOM_CONNECTION_SERVICE);
 
         //Widgets
-        FloatingActionButton fabAccept = (FloatingActionButton) findViewById(R.id.fab_accept);
-        FloatingActionButton fabDeny = (FloatingActionButton) findViewById(R.id.fab_reject);
+        final FloatingActionButton fabAccept = (FloatingActionButton) findViewById(R.id.fab_accept);
+        final FloatingActionButton fabDeny = (FloatingActionButton) findViewById(R.id.fab_reject);
         callerInfoListView = (ListView) findViewById(R.id.callerInfoListView);
         accountInfoListView = (ListView) findViewById(R.id.account_info_listview);
         caseInfoListView = (ListView) findViewById(R.id.case_info_listview);
@@ -81,6 +84,8 @@ public class AlertScreen extends AppCompatActivity {
                             CallHandler.acceptCall(VideoProfile.STATE_AUDIO_ONLY);
                             Intent inCallActivityIntent = new Intent(AlertScreen.this, InCallActivity.class);
                             startActivity(inCallActivityIntent);
+                            fabAccept.setVisibility(View.INVISIBLE);
+                            fabDeny.setVisibility(View.INVISIBLE);
                         } else {
                             Toast.makeText(context, R.string.no_call_to_answer, toastDuration).show();
                         }
@@ -95,6 +100,8 @@ public class AlertScreen extends AppCompatActivity {
                         if (CallHandler.getCall() != null) {
                             CallHandler.rejectCall();
                             Toast.makeText(context, R.string.call_rejected, toastDuration).show();
+                            fabAccept.setVisibility(View.INVISIBLE);
+                            fabDeny.setVisibility(View.INVISIBLE);
                         } else {
                             Toast.makeText(context, R.string.no_call_to_reject, toastDuration).show();
                         }
@@ -112,14 +119,21 @@ public class AlertScreen extends AppCompatActivity {
     }
 
     public void updateContactListView(){
-        ContactInfoUpdater.updateListView(callerInfoListView, AlertScreen.this);
-        ContactInfoUpdater.updateListView(accountInfoListView, AlertScreen.this);
-        ContactInfoUpdater.updateListView(caseInfoListView, AlertScreen.this);
+        ContactInfoUpdater.updateListView(callerInfoListView,accountInfoListView, caseInfoListView, AlertScreen.this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
     }
 }
