@@ -32,6 +32,6 @@ public class MyInCallService extends InCallService {
     }
 
     public static boolean hasCall() {
-            return incomingCall!=null;
+            return incomingCall==null;
     }
 }

@@ -8,4 +8,5 @@
     <string name="no_call_to_reject">There is no call to reject</string>
     <string name="no_call_to_answer">There is no call to answer</string>
     <string name="title_activity_start_screen">StartScreenActivity</string>
+    <string name="title_activity_make_call">MakeCallActivity</string>
 </resources>

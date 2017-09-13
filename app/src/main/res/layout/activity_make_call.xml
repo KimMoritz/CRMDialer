@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.com.moritz.crmdialer.activity.InCallActivity">
+    tools:context="se.com.moritz.crmdialer.activity.MakeCallActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_in_call"
-        android:id="@+id/include" />
+    <include layout="@layout/content_make_call"
+        android:id="@+id/include3" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -31,29 +31,27 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@android:color/holo_red_dark"
         app:fabSize="normal"
-        app:layout_anchor="@+id/include"
+        app:layout_anchor="@+id/include3"
         app:layout_anchorGravity="center_vertical|center_horizontal"
-        app:rippleColor="@android:color/black"
-        app:srcCompat="@android:drawable/ic_menu_call" />
+        app:srcCompat="@android:drawable/sym_action_call" />
 
     <Chronometer
-        android:id="@+id/chronometer2"
-        android:layout_width="106dp"
-        android:layout_height="40dp"
+        android:id="@+id/chronometer3"
+        android:layout_width="41dp"
+        android:layout_height="35dp"
         android:layout_gravity="top|center_horizontal"
-        android:textAlignment="center"
         android:textSize="30sp"
-        android:visibility="visible"
-        app:layout_anchor="@+id/include"
+        app:layout_anchor="@+id/include3"
         app:layout_anchorGravity="bottom|center_horizontal" />
 
-    <TextClock
-        android:id="@+id/textClock"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
+        android:text="Outgoing call"
         android:textSize="30sp"
-        app:layout_anchor="@+id/include"
+        app:layout_anchor="@+id/include3"
         app:layout_anchorGravity="top|center_horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>

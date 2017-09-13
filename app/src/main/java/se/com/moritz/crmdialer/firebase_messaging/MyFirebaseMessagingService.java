@@ -1,16 +1,14 @@
 package se.com.moritz.crmdialer.firebase_messaging;
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import se.com.moritz.crmdialer.activity.AlertScreen;
 import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
-import se.com.moritz.crmdialer.phonecall.MyInCallService;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -22,6 +20,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload name: " + remoteMessage.getData().get("Name"));
+            Log.d(TAG, "Message data payload case reason: " + remoteMessage.getData().get("CaseReason"));
             ContactInfoUpdater.addContactInfo(remoteMessage.getData().get("Name"));
             ContactInfoUpdater.addContactInfo(remoteMessage.getData().get("Phone"));
             ContactInfoUpdater.addContactInfo(remoteMessage.getData().get("Email"));
@@ -47,11 +46,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
         }
 
-        if (MyInCallService.hasCall()) {
+        /*if (MyInCallService.hasCall()) {
             Context context = getApplicationContext();
             Intent crmReplyAlertScreenIntent = new Intent(context, AlertScreen.class);
             context.startActivity(crmReplyAlertScreenIntent);
-        }
+        }*/
     }
 
 }

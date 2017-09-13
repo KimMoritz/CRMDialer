@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="se.com.moritz.crmdialer.activity.AlertScreen"
-    tools:showIn="@layout/activity_alert_screen">
+    tools:context="se.com.moritz.crmdialer.activity.MakeCallActivity"
+    tools:showIn="@layout/activity_make_call">
 
 </android.support.constraint.ConstraintLayout>

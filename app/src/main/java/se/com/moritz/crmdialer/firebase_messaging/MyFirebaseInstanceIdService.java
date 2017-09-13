@@ -8,6 +8,11 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIDService";
+    private static String firebaseToken = FirebaseInstanceId.getInstance().getToken();
+
+    public static String getFirebaseToken() {
+        return firebaseToken;
+    }
 
     @Override
     public void onTokenRefresh() {
@@ -17,7 +22,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to app server for easier registration.
-        // or perhaps not... requires inbound channel to server in Azure...
+        new SalesforceIdUpdater(token).execute();
     }
+
 }

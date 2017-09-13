@@ -1,9 +1,9 @@
 package se.com.moritz.crmdialer.crm;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
 public class ContactInfoUpdater {
@@ -29,10 +29,6 @@ public class ContactInfoUpdater {
         caseListView.setAdapter(listAdapter);
 
         updated = true;
-    }
-
-    public static ArrayList<String> getContactInfo() {
-        return contactInfo;
     }
 
     public static void addContactInfo(String s) {
@@ -66,5 +62,9 @@ public class ContactInfoUpdater {
         accountInfo.clear();
         caseInfo.clear();
         updated = false;
+    }
+
+    public static boolean contactInfoExists() {
+        return !contactInfo.isEmpty();
     }
 }

@@ -1,43 +1,39 @@
 package se.com.moritz.crmdialer.activity;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telecom.VideoProfile;
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.View;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.google.firebase.iid.FirebaseInstanceId;
-import se.com.moritz.crmdialer.phonecall.CallHandler;
-import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
-import se.com.moritz.crmdialer.broadcast.MyBroadCastReceiver;
+
 import se.com.moritz.crmdialer.R;
-import se.com.moritz.crmdialer.phonecall.TelephonyManagerHandler;
+import se.com.moritz.crmdialer.phonecall.MyBroadCastReceiver;
+import se.com.moritz.crmdialer.crm.ContactInfoUpdater;
+import se.com.moritz.crmdialer.phonecall.CallHandler;
 
 public class AlertScreen extends AppCompatActivity {
 
     ListView callerInfoListView,accountInfoListView, caseInfoListView;
     int toastDuration;
-    public static final int REQUEST_CODE_FOR_PHONE=1;
-    public static final int REQUEST_CODE_FOR_BIND_TELECOM_CONNECTION_SERVICE=2;
-    public static final int REQUEST_CODE_FOR_CALL_PHONE=3;
     Context context;
     MyBroadCastReceiver myBroadCastReceiver;
-    TelephonyManagerHandler telephonyManagerHandler;    //TODO: Needed?
     public final String TAG = "AlertScreen" ;
     private Window window;
+    private TelephonyManager telephonyManager;
+    private PhoneStateListener phoneStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +55,6 @@ public class AlertScreen extends AppCompatActivity {
         stateChangeIntentFilter.addAction(TelephonyManager.EXTRA_STATE_OFFHOOK);
         context = getApplicationContext();
         context.registerReceiver(myBroadCastReceiver, stateChangeIntentFilter);
-        telephonyManagerHandler = new TelephonyManagerHandler(this);
-
-        checkPermissions(this, android.Manifest.permission.READ_PHONE_STATE, REQUEST_CODE_FOR_PHONE);
-        checkPermissions(this, android.Manifest.permission.CALL_PHONE, REQUEST_CODE_FOR_CALL_PHONE);
-        checkPermissions(this, Manifest.permission.BIND_TELECOM_CONNECTION_SERVICE,
-                REQUEST_CODE_FOR_BIND_TELECOM_CONNECTION_SERVICE);
 
         //Widgets
         final FloatingActionButton fabAccept = (FloatingActionButton) findViewById(R.id.fab_accept);
@@ -109,13 +99,18 @@ public class AlertScreen extends AppCompatActivity {
                 });
 
         Log.d(TAG, "FireBase token: " + FirebaseInstanceId.getInstance().getToken());
-    }
 
-    public static void checkPermissions(Activity activity, String permission, int requestCode){
-        if (ActivityCompat.checkSelfPermission(
-                activity, permission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,new String[]{permission},requestCode);
-        }
+        telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        phoneStateListener = new PhoneStateListener(){
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber){
+                if(state==TelephonyManager.CALL_STATE_IDLE) {
+                    fabAccept.setVisibility(View.INVISIBLE);
+                    fabDeny.setVisibility(View.INVISIBLE);
+                }
+            }
+        };
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     public void updateContactListView(){
